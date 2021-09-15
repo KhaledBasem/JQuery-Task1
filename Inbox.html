@@ -2,6 +2,157 @@
 <html>
     <head>
         <link href="style.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="jquery-3.6.0.min.js" ></script>
+        <script type="text/javascript">
+
+
+          $(document).ready(function(){
+
+
+            $("#chkAll").click(function(){
+                
+                
+                if($(this).prop("checked")==true){
+                    
+
+                $("#Inbox table input").prop("checked",true);
+                }
+                else{
+                    $("#Inbox table input").prop("checked",false);
+
+                }
+
+            });
+            
+
+            $("#btnCompose").click(function(){
+                
+                $("#SendEmail").show();
+                $("#Inbox").hide();
+                $("#SentMail").hide();
+
+
+
+            })
+
+            $("#InboxMenu").click(function(){
+                $("#SendEmail").hide();
+                $("#Inbox").show();
+                $("#SentMail").hide();
+                $("#InboxMenu").addClass("active");
+                $("#SentMenu").removeClass("active");
+                
+                
+
+
+
+
+            })
+            $("#SentMenu").click(function(){
+                $("#SendEmail").hide();
+                $("#Inbox").hide();
+                $("#SentMail").show();
+                $("#SentMenu").addClass("active");
+                $("#InboxMenu").removeClass("active");
+                
+                
+
+
+
+            })
+            
+            $("#Inbox table tr").mouseenter(function(){
+                
+              $(this).find('.emailAction').css("display","block")
+            
+        })
+       
+        $("#Inbox table tr ").mouseleave(function(){
+            $(this).find('.emailAction').css("display","none")
+            
+        })
+        $(".emailAction #delete").click(function(){
+            $(this).parents("tr").remove();
+
+        })
+        $(".from").click(function(){
+            
+            
+            $(this).parents("tr").removeClass("Unread");
+            
+        })
+
+        $(".emailAction #read").click(function(){
+            $(this).parents("tr").addClass("Unread")
+            
+
+        })
+
+        $("#imgdeleteAll").click(function(){
+            $("#Inbox table input").each(function(){
+                if($(this).prop("checked")==true){
+                    $(this).parents("tr").remove();
+                }
+            })
+        
+        });
+        $("#imgMarkRead").click(function(){
+            $("#Inbox table input").each(function(){
+                if($(this).prop("checked")==true){
+                    $(this).parents("tr").removeClass("Unread");
+                }
+            })
+        
+        });
+
+        
+
+        
+
+        
+
+        $("#btnSend").click(function(){
+
+
+            var v=new Date();
+            var datev= v.toDateString();
+            $("#tblSent").append("<tr><td>"+"<input type='checkbox'/>"+"</td><td>"
+                +$('#txtTo').val()+"</td><td>"+$('#txtSubject').val()+"</td><td>"+datev+"</td></tr>");
+
+                $("#txtTo").val(" ");
+                $("#txtSubject").val(" ");
+                 
+
+        });
+        $("#chkAllSent").click(function(){
+                
+                if($(this).prop("checked")==true){
+
+                $("#tblSent input").prop("checked",true);
+                }
+                else{
+                    $("#tblSent input").prop("checked",false);
+
+                }
+
+            });
+
+            $("#deleteAllSent").click(function(){
+            $("#tblSent input").each(function(){
+                if($(this).prop("checked")==true){
+                    $(this).parents("tr").remove();
+                }
+            })
+        
+        });
+            
+    
+        });
+
+       
+
+        </script>
        
 
 
@@ -129,7 +280,7 @@
         <div id="SentMail" class="Container" style="display: none;">
             <div class="ActionContainer">
                 <div class="ActionsBox">
-                    <input type="checkbox" id="chkAllSent"  />All
+                    <input type="checkbox" id="chkAllSent"/>All
                 </div>
                 <div class="ActionsBox">
                     <img src="delete.png" class="ActionIcons" id="deleteAllSent" />
@@ -141,6 +292,7 @@
                     <colgroup style="width: 35%;"/>
                     <colgroup style="width: 35%;"/>
                     <colgroup style="width: 20%;"/>
+
                    
                 </table>
 
